@@ -8,6 +8,7 @@ use App\Http\Requests\Admin\Users\UpdateUserRequest;
 use App\Models\User;
 use App\Services\Interfaces\UserService;
 use Illuminate\Contracts\View\View;
+use Illuminate\Http\Request;
 
 class UserController extends Controller
 {
@@ -15,7 +16,8 @@ class UserController extends Controller
 
     public function index(): View
     {
-        return view('admin.pages.users.index');
+        $users = $this->userService->paginate(15);
+        return view('admin.pages.users.index', compact('users'));
     }
 
     /**
@@ -64,5 +66,9 @@ class UserController extends Controller
     public function destroy(User $user)
     {
         //
+    }
+
+    public function deleteMany(Request $request)
+    {
     }
 }

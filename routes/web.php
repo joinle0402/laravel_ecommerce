@@ -13,6 +13,7 @@ Route::middleware('guest')->group(function () {
 
 Route::middleware('auth')->group(function () {
     Route::prefix('/admin')->name('admin.')->group(function () {
+        Route::delete('/users/deleteMany', [UserController::class, 'deleteMany'])->name('users.deleteMany');
         Route::resource('users', UserController::class);
         Route::get('/dashboard', [IndexController::class, 'dashboard'])->name('dashboard');
     });

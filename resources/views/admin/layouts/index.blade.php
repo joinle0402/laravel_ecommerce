@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="{{ asset('admin/plugins/fontawesome-free/css/all.min.css') }}">
     <link rel="stylesheet" href="{{ asset('admin/dist/css/adminlte.min.css') }}">
     <link rel="stylesheet" href="{{ asset('admin/css/styles.css') }}">
-    @yield('style')
+    @yield('styles')
 </head>
 <body class="hold-transition sidebar-mini layout-fixed">
 
@@ -40,7 +40,7 @@
     <script src="{{ asset('admin/plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
     <script src="{{ asset('admin/dist/js/adminlte.js') }}"></script>
     <script src="{{ asset('admin/js/script.js') }}"></script>
-    @yield('script')
+    @yield('scripts')
     <script type="text/javascript">
         $(document).ready(function() {
             $.ajaxSetup({

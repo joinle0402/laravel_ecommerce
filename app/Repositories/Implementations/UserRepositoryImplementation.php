@@ -4,11 +4,14 @@ namespace App\Repositories\Implementations;
 
 use App\Models\User;
 use App\Repositories\Interfaces\UserRepository;
+use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 
 class UserRepositoryImplementation extends BaseRepositoryImplementation implements UserRepository
 {
-    public function __construct(User $model)
+    public function __construct(User $model) { parent::__construct($model); }
+
+    public function paginate(int $perPage = 10): LengthAwarePaginator
     {
-        parent::__construct($model);
+        return $this->model->query()->with('province', 'district', 'ward')->paginate($perPage);
     }
 }
