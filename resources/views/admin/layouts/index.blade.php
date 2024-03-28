@@ -8,14 +8,18 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
     <link rel="stylesheet" href="{{ asset('admin/plugins/fontawesome-free/css/all.min.css') }}">
     <link rel="stylesheet" href="{{ asset('admin/dist/css/adminlte.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('admin/css/styles.css') }}">
     @yield('style')
 </head>
 <body class="hold-transition sidebar-mini layout-fixed">
 
     <div class="wrapper">
 
-        <div class="preloader flex-column justify-content-center align-items-center">
-            <img class="animation__shake" src="{{ asset('admin/dist/img/AdminLTELogo.png') }}" alt="AdminLTELogo" height="60" width="60">
+        <div class="loading" id="loading" style="">
+            <div class="ring">
+                Loading
+                <span></span>
+            </div>
         </div>
 
         @include('admin.partials.navbar')
@@ -35,6 +39,20 @@
     <script src="{{ asset('admin/plugins/jquery-ui/jquery-ui.min.js') }}"></script>
     <script src="{{ asset('admin/plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
     <script src="{{ asset('admin/dist/js/adminlte.js') }}"></script>
+    <script src="{{ asset('admin/js/script.js') }}"></script>
     @yield('script')
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                beforeSend: function(xhr, options) {
+                    options.url = "{{ url('/')  }}" + options.url;
+                }
+            });
+            $('#loading').hide();
+        });
+    </script>
 </body>
 </html>
