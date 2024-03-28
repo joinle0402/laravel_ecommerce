@@ -6,16 +6,15 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\Users\StoreUserRequest;
 use App\Http\Requests\Admin\Users\UpdateUserRequest;
 use App\Models\User;
-use App\Repositories\Interfaces\UserRepository;
+use App\Services\Interfaces\UserService;
 use Illuminate\Contracts\View\View;
 
 class UserController extends Controller
 {
-    public function __construct(protected UserRepository $userRepository) {}
+    public function __construct(protected UserService $userService) {}
 
     public function index(): View
     {
-        dd($this->userRepository->all());
         return view('admin.pages.users.index');
     }
 

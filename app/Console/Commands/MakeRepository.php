@@ -6,9 +6,8 @@ use Illuminate\Console\GeneratorCommand;
 
 class MakeRepository extends GeneratorCommand
 {
-    protected $signature = 'make:repository {name} {--Q|queue}';
+    protected $signature = 'make:repository {name}';
     protected $description = 'Create a new repository file';
-    protected $type = 'Repository';
 
     protected function getNameInput(): string
     {

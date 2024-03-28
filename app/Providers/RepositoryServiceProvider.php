@@ -28,6 +28,12 @@ class RepositoryServiceProvider extends ServiceProvider
         foreach ($interfaces as $index => $interface) {
             $this->app->singleton($interfaces[$index], $implementations[$index]);
         }
+
+        $interfaces = $this->getClasses(app_path('Services\Interfaces'));
+        $implementations = $this->getClasses(app_path('Services\Implementations'));
+        foreach ($interfaces as $index => $interface) {
+            $this->app->singleton($interfaces[$index], $implementations[$index]);
+        }
     }
 
     /**
