@@ -1,0 +1,14 @@
+<?php
+
+namespace {{ namespace }};
+
+use App\Repositories\Interfaces\{{ RepositoryInterface }};
+use {{ modelNamespace }};
+
+class {{ RepositoryClass }} extends BaseRepositoryImplementation implements {{ RepositoryInterface }}
+{
+    public function __construct({{ Model }} $modelInstance)
+    {
+        parent::__construct($modelInstance);
+    }
+}
