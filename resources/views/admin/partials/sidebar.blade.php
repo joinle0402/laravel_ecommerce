@@ -17,10 +17,26 @@
         <nav class="mt-2">
             <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
                 <li class="nav-item">
-                    <a href="#" class="nav-link">
-                        <i class="nav-icon fas fa-th"></i>
-                        <p>Widgets</p>
+                    <a href="{{ route("admin.dashboard") }}" @class(['nav-link', 'active' => request()->routeIs('admin.dashboard')])>
+                        <i class="fas fa-grip-vertical"></i>
+                        <p style="margin-left: 0.5rem">Dashboard</p>
                     </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{{ route("admin.users.index") }}" @class(['nav-link', 'active' => request()->routeIs('admin.users.*')])>
+                        <i class="fas fa-users"></i>
+                        <p style="margin-left: 0.5rem">User</p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <form action="{{ route('auth.logout') }}" method="POST">
+                        @csrf
+                        @method('POST')
+                        <button type="submit" class="nav-link">
+                            <i class="fas fa-sign-out-alt"></i>
+                            <p style="margin-left: 0.5rem">Logout</p>
+                        </button>
+                    </form>
                 </li>
             </ul>
         </nav>
