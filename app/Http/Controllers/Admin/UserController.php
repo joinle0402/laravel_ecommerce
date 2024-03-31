@@ -8,15 +8,17 @@ use App\Http\Requests\Admin\Users\UpdateUserRequest;
 use App\Models\User;
 use App\Services\Interfaces\UserService;
 use Illuminate\Contracts\View\View;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 
 class UserController extends Controller
 {
     public function __construct(protected UserService $userService) {}
 
-    public function index(): View
+    public function index(Request $request): View
     {
-        $users = $this->userService->paginate(15);
+        $perPage = $request->integer('per_page', 10);
+        $users = $this->userService->paginate($perPage, $request->all());
         return view('admin.pages.users.index', compact('users'));
     }
 
@@ -60,15 +62,30 @@ class UserController extends Controller
         //
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(User $user)
+    public function destroy(int $id): RedirectResponse
     {
-        //
+        if (auth()->id() === $id) {
+            return back()->with('error', 'Không thể xóa chính người thao tác!');
+        } else {
+            if (empty($this->userService->deleteById($id))) {
+                return back()->with('error', 'Người dùng này không tồn tại!');
+            } else {
+                return back()->with('success', 'Xóa người dùng thành công!');
+            }
+        }
     }
 
     public function deleteMany(Request $request)
     {
+        $deletedIds = $request->get('checkedRows', []);
+        if (in_array(auth()->id(), $deletedIds)) {
+            return back()->with('error', 'Không thể xóa chính người thao tác!');
+        } else {
+            if (empty($this->userService->deleteByIds($deletedIds))) {
+                return back()->with('error', 'Người dùng này không tồn tại!');
+            } else {
+                return back()->with('success', 'Xóa người dùng thành công!');
+            }
+        }
     }
 }

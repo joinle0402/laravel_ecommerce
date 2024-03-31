@@ -32,7 +32,7 @@
                                             <input type="text" class="form-control" id="keyword" placeholder="Nhập từ khoá">
                                         </label>
                                         <div class="input-group-append">
-                                            <button class="btn btn-secondary" type="button" id="button-addon2">
+                                            <button class="btn btn-secondary" type="button" onclick="handleButtonSearchClicked();">
                                                 <i class="fas fa-search"></i>
                                             </button>
                                         </div>
@@ -86,7 +86,7 @@
                                                         <label for="checkbox-row-{{ $index }}"></label>
                                                     </div>
                                                 </th>
-                                                <td class="text-center vertical-middle">{{ $index + 1 }}</td>
+                                                <td class="text-center vertical-middle">{{ (($users->currentPage() - 1) * 10) + ($index + 1) }}</td>
                                                 <td class="vertical-middle">
                                                     <ul>
                                                         <li>
@@ -203,9 +203,7 @@
                 } else {
                     Swal.fire({
                         icon: 'error',
-                        title: 'Bạn chưa chọn các dòng cần thực hiện chức năng này!',
-                        showConfirmButton: false,
-                        timer: 1500
+                        text: 'Bạn vui lòng chọn record trước khi thực hiện thao tác này!',
                     });
                 }
             });
@@ -214,9 +212,13 @@
         function handleButtonDeleteOneClick(id) {
             conformDialog(function () {
                 $('input[name="_method"]').val('DELETE');
-                const url = "{{ route('admin.users.destroy', ":id") }}".replace(':id', id);
-                $('#form').attr('action', url).submit();
+                $('form').attr('action', "{{ route('admin.users.destroy', ":id") }}".replace(":id", id)).submit();
             });
         }
+
+        function handleButtonSearchClicked() {
+            window.location = "{!! request()->fullUrlWithQuery(['keyword' => '__keyword__']) !!}".replace('__keyword__', $('#keyword').val());
+        }
+
     </script>
 @endsection
