@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\Users\StoreUserRequest;
 use App\Http\Requests\Admin\Users\UpdateUserRequest;
 use App\Models\User;
+use App\Services\Interfaces\ProvinceService;
 use App\Services\Interfaces\UserService;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
@@ -13,7 +14,10 @@ use Illuminate\Http\Request;
 
 class UserController extends Controller
 {
-    public function __construct(protected UserService $userService) {}
+    public function __construct(
+        protected UserService $userService,
+        protected ProvinceService $provinceService
+    ) {}
 
     public function index(Request $request): View
     {
@@ -22,12 +26,10 @@ class UserController extends Controller
         return view('admin.pages.users.index', compact('users'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
+    public function create(): View
     {
-        //
+        $provinces = $this->provinceService->all();
+        return view('admin.pages.users.create', compact('provinces'));
     }
 
     /**
@@ -35,7 +37,7 @@ class UserController extends Controller
      */
     public function store(StoreUserRequest $request)
     {
-        //
+        dd($request->validated());
     }
 
     /**

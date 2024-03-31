@@ -45,7 +45,7 @@
         $(document).ready(function() {
             $.ajaxSetup({
                 headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
                 },
                 beforeSend: function(xhr, options) {
                     options.url = "{{ url('/')  }}" + options.url;
