@@ -18,64 +18,50 @@
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="email">Email: <span style="color: red;">(*)</span></label>
-                                        <input type="email"
-                                               @class(['form-control', 'is-invalid' => $errors->has('email')]) id="email"
-                                               name="email" value="{{ old('email') }}">
+                                        <input type="email" @class(['form-control', 'is-invalid' => $errors->has('email')]) id="email" name="email" value="{{ old('email') }}">
                                         @error('email')
-                                        <div class="invalid-feedback">{{ $message }}</div>
+                                            <div class="invalid-feedback">{{ $message }}</div>
                                         @enderror
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="name">Họ tên: <span style="color: red;">(*)</span></label>
-                                        <input type="text"
-                                               @class(['form-control', 'is-invalid' => $errors->has('name')]) id="name"
-                                               name="name" value="{{ old('name') }}">
+                                        <input type="text" @class(['form-control', 'is-invalid' => $errors->has('name')]) id="name" name="name" value="{{ old('name') }}">
                                         @error('name')
-                                        <div class="invalid-feedback">{{ $message }}</div>
+                                            <div class="invalid-feedback">{{ $message }}</div>
                                         @enderror
                                     </div>
                                 </div>
                             </div>
 
-                            <div class="row mb-3">
+                            <div class="row">
                                 <div class="col-md-6">
-                                    <div class="input-group">
+                                    <div class="form-group">
                                         <label>Mật khẩu:</label>
-                                        <div @class(['input-group', 'is-invalid' => $errors->has('password')])>
-                                            <input class="form-control" type="password" id="password" name="password" value="{{ old('password') }}" style="border-right: 0;">
-                                            <div class="input-group-append"
-                                                 onclick="handleButtonToggleShowPasswordClicked(this)"
-                                                 style="cursor: pointer;">
-                                                <span class="input-group-text" style="background-color: white;">
-                                                    <a href="javascript:void(0);" style="color: #333;"><i
-                                                            class="fa fa-eye-slash" aria-hidden="true"></i></a>
-                                                </span>
-                                            </div>
+                                        <div class="relative">
+                                            <input @class(['form-control', 'is-invalid' => $errors->has('password')]) type="password" id="password" name="password" value="{{ old('confirm_password') }}">
+                                            <button type="button" class="button-icon" onclick="handleButtonToggleShowPasswordClicked(this)">
+                                                <i class="fas fa-eye"></i>
+                                            </button>
+                                            @error('password')
+                                                <div class="invalid-feedback">{{ $message }}</div>
+                                            @enderror
                                         </div>
-                                        @error('password')
-                                            <div class="invalid-feedback">{{ $message }}</div>
-                                        @enderror
                                     </div>
                                 </div>
                                 <div class="col-md-6">
-                                    <div class="input-group">
+                                    <div class="form-group">
                                         <label>Nhập lại mật khẩu:</label>
-                                        <div @class(['input-group', 'is-invalid' => $errors->has('confirm_password')])>
-                                            <input class="form-control" type="password" id="confirm_password" name="confirm_password" value="{{ old('confirm_password') }}" style="border-right: none;">
-                                            <div class="input-group-append"
-                                                 onclick="handleButtonToggleShowPasswordClicked(this)"
-                                                 style="cursor: pointer;">
-                                                <span class="input-group-text" style="background-color: white;">
-                                                    <a href="javascript:void(0);" style="color: #333;"><i
-                                                            class="fa fa-eye-slash" aria-hidden="true"></i></a>
-                                                </span>
-                                            </div>
+                                        <div class="relative">
+                                            <input @class(['form-control', 'is-invalid' => $errors->has('confirm_password')]) type="password" id="confirm_password" name="confirm_password" value="{{ old('confirm_password') }}">
+                                            <button type="button" class="button-icon" onclick="handleButtonToggleShowPasswordClicked(this)">
+                                                <i class="fas fa-eye"></i>
+                                            </button>
+                                            @error('confirm_password')
+                                                <div class="invalid-feedback">{{ $message }}</div>
+                                            @enderror
                                         </div>
-                                        @error('confirm_password')
-                                        <div class="invalid-feedback">{{ $message }}</div>
-                                        @enderror
                                     </div>
                                 </div>
                             </div>
@@ -279,6 +265,12 @@
         .ui-datepicker-title select {
             padding: 4px;
         }
+
+        #confirm_password.form-control.is-invalid,
+        #password.form-control.is-invalid,
+        .was-validated .form-control:invalid {
+            background-image: none;
+        }
     </style>
 @endsection
 
@@ -286,30 +278,7 @@
     <script src="{{ asset('admin/plugins/select2/js/select2.full.min.js') }}"></script>
     <script src="{{ asset('admin/plugins/sweetalert2/sweetalert2.all.min.js') }}"></script>
     <script src="{{ asset('admin/plugins/jquery-ui/jquery-ui.min.js') }}"></script>
-    <script>
-        jQuery(function ($) {
-            $.datepicker.regional["vi-VN"] =
-                {
-                    closeText: "Đóng",
-                    prevText: "Trước",
-                    nextText: "Sau",
-                    currentText: "Hôm nay",
-                    monthNames: ["Tháng một", "Tháng hai", "Tháng ba", "Tháng tư", "Tháng năm", "Tháng sáu", "Tháng bảy", "Tháng tám", "Tháng chín", "Tháng mười", "Tháng mười một", "Tháng mười hai"],
-                    monthNamesShort: ["Một", "Hai", "Ba", "Bốn", "Năm", "Sáu", "Bảy", "Tám", "Chín", "Mười", "Mười một", "Mười hai"],
-                    dayNames: ["Chủ nhật", "Thứ hai", "Thứ ba", "Thứ tư", "Thứ năm", "Thứ sáu", "Thứ bảy"],
-                    dayNamesShort: ["CN", "Hai", "Ba", "Tư", "Năm", "Sáu", "Bảy"],
-                    dayNamesMin: ["CN", "T2", "T3", "T4", "T5", "T6", "T7"],
-                    weekHeader: "Tuần",
-                    dateFormat: "dd/mm/yy",
-                    firstDay: 1,
-                    isRTL: false,
-                    showMonthAfterYear: false,
-                    yearSuffix: ""
-                };
-
-            $.datepicker.setDefaults($.datepicker.regional["vi-VN"]);
-        });
-    </script>
+    <script src="{{ asset('admin/plugins/jquery-ui/jquery.ui.datepicker-vi-VN.js') }}"></script>
 
     <script type="text/javascript">
         $(document).ready(function () {
@@ -418,12 +387,12 @@
             const input = $(element).prev('input');
             if (input.attr('type') === 'text') {
                 input.attr('type', 'password');
-                icon.addClass('fa-eye-slash');
-                icon.removeClass('fa-eye');
-            } else {
-                input.attr('type', 'text');
                 icon.removeClass('fa-eye-slash');
                 icon.addClass('fa-eye');
+            } else {
+                input.attr('type', 'text');
+                icon.addClass('fa-eye-slash');
+                icon.removeClass('fa-eye');
             }
         }
     </script>

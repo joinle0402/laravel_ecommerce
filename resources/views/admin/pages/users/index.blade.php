@@ -136,9 +136,9 @@
                                                         <button type="button" class="btn btn-danger" onclick="handleButtonDeleteOneClick({{ $user->id }})">
                                                             <i class="fas fa-trash"></i>
                                                         </button>
-                                                        <button type="button" class="btn btn-primary">
+                                                        <a type="button" class="btn btn-primary" href="{{ route('admin.users.edit', $user) }}">
                                                             <i class="fas fa-edit"></i>
-                                                        </button>
+                                                        </a>
                                                     </div>
                                                 </td>
                                             </tr>

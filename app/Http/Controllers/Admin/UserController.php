@@ -54,9 +54,9 @@ class UserController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(User $user)
+    public function edit(User $user): View
     {
-        //
+        return view('admin.pages.users.update', compact('user'));
     }
 
     /**
@@ -80,7 +80,7 @@ class UserController extends Controller
         }
     }
 
-    public function deleteMany(Request $request)
+    public function deleteMany(Request $request): RedirectResponse
     {
         $deletedIds = $request->get('checkedRows', []);
         if (in_array(auth()->id(), $deletedIds)) {
