@@ -36,4 +36,9 @@ class BaseRepositoryImplementation implements BaseRepository
     {
         return $this->model->query()->whereIn('id', $ids)->delete();
     }
+
+    public function create(array $attribute): Builder|Model
+    {
+        return $this->model->newQuery()->create($attribute);
+    }
 }

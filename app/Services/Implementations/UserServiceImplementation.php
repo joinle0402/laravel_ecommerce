@@ -23,4 +23,9 @@ class UserServiceImplementation implements UserService
     {
         return $this->userRepository->deleteByIds($ids);
     }
+
+    function create(array $attribute)
+    {
+        return $this->userRepository->create($attribute);
+    }
 }

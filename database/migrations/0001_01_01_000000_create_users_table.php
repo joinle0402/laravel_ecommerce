@@ -23,7 +23,7 @@ return new class extends Migration
             $table->string('ward_code')->nullable();
             $table->string('street')->nullable();
             $table->string('address')->nullable();
-            $table->dateTime('birthday')->nullable();
+            $table->date('birthday')->nullable();
             $table->string('avatar')->nullable();
             $table->tinyInteger('role_id')->default(1);
             $table->rememberToken();

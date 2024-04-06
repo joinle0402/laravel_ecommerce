@@ -12,22 +12,25 @@ class User extends Authenticatable
 {
     use HasFactory, Notifiable;
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array<int, string>
-     */
     protected $fillable = [
         'name',
         'email',
         'password',
+        "email",
+        "name",
+        "role_id",
+        "birthday",
+        "phone",
+        "avatar",
+        "province_code",
+        "district_code",
+        "ward_code",
+        "street",
+        "address",
+        "note",
+        "password",
     ];
 
-    /**
-     * The attributes that should be hidden for serialization.
-     *
-     * @var array<int, string>
-     */
     protected $hidden = [
         'password',
         'remember_token',

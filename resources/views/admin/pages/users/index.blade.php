@@ -29,7 +29,7 @@
                                 <div class="flex gap-2">
                                     <div class="input-group">
                                         <label for="keyword" style="margin-bottom: 0;">
-                                            <input type="text" class="form-control" id="keyword" placeholder="Nhập từ khoá">
+                                            <input type="text" class="form-control" id="keyword"  name="keyword" value="{{ request()->query('keyword') }}" placeholder="Nhập từ khoá">
                                         </label>
                                         <div class="input-group-append">
                                             <button class="btn btn-secondary" type="button" onclick="handleButtonSearchClicked();">
@@ -115,15 +115,15 @@
                                                     <ul>
                                                         <li>
                                                             <strong>Tỉnh thành:</strong>
-                                                            <span>{{ $user->province->full_name }}</span>
+                                                            <span>{{ $user->province?->full_name }}</span>
                                                         </li>
                                                         <li>
                                                             <strong>Quận huyện:</strong>
-                                                            <span>{{ $user->district->full_name }}</span>
+                                                            <span>{{ $user->district?->full_name }}</span>
                                                         </li>
                                                         <li>
                                                             <strong>Phường xã:</strong>
-                                                            <span>{{ $user->ward->full_name }}</span>
+                                                            <span>{{ $user->ward?->full_name }}</span>
                                                         </li>
                                                     </ul>
                                                 </td>

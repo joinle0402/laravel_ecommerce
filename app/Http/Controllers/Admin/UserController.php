@@ -11,6 +11,7 @@ use App\Services\Interfaces\UserService;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class UserController extends Controller
 {
@@ -32,12 +33,14 @@ class UserController extends Controller
         return view('admin.pages.users.create', compact('provinces'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(StoreUserRequest $request)
+    public function store(StoreUserRequest $request): RedirectResponse
     {
-        dd($request->validated());
+        $user = $request->validated();
+        if ($request->hasFile('avatar') && $request->file('avatar')->isValid()) {
+            $user['avatar'] = Storage::disk('public')->put('images/users/avatar', request()->file('avatar'));
+        }
+        $this->userService->create($user);
+        return redirect()->route('admin.users.index')->with('success', 'Tạo người dùng thành công!');
     }
 
     /**

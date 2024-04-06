@@ -16,9 +16,11 @@ class StoreUserRequest extends FormRequest
         return [
             'email' => 'required|unique:users',
             'name' => 'required',
+            'password' => 'nullable|min:3|required_with:confirm_password|same:confirm_password',
+            'confirm_password' => 'nullable|min:3',
             'role_id' => 'required|integer|in:1,2',
-            'birthday' => 'nullable|date_format:Y-m-d|before:today',
-            'avatar' => 'nullable|image|mimes:jpeg,jpg,png,gif|max:100000',
+            'birthday' => 'nullable|date_format:d/m/Y|before:today',
+            'avatar' => 'nullable|image|max:1024|mimes:jpg,jpeg,png',
             'phone' => 'nullable|numeric|digits:10',
             'province_code' => 'nullable|numeric|digits:2',
             'district_code' => 'nullable|numeric|digits:3',
@@ -34,6 +36,8 @@ class StoreUserRequest extends FormRequest
         return [
             'email' => 'địa chỉ email',
             'name' => 'họ tên',
+            'password' => 'Mật khẩu',
+            'confirm_password' => 'Mật khẩu xác thực',
             'role_id' => 'vai trò',
             'birthday' => 'ngày sinh',
             'avatar' => 'ảnh đại diện',
